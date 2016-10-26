@@ -114,6 +114,7 @@ to load before the `*_proto_repositories()` function is invoked:
 | closure_proto_repositories | [rules_closure](https://github.com/bazelbuild/rules_closure) |
 | csharp_proto_repositories | [rules_dotnet](https://github.com/bazelbuild/rules_dotnet) |
 | node_proto_repositories | [rules_node](https://github.com/pubref/rules_node) |
+| py_proto_repositories | [rules_pypi](https://github.com/gengo/rules_pypi) |
 
 If you're only interested in the `proto_compile` rule and not any
 language-specific rules, just load the generic `proto_repositories`

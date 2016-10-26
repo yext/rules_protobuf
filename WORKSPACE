@@ -57,6 +57,25 @@ load("@org_pubref_rules_node//node:rules.bzl", "node_repositories")
 node_repositories()
 
 # ================================================================
+# py_proto_library support requires rules_pypi
+# ================================================================
+
+# git_repository(
+#     name = "com_github_gengo_rules_pypi",
+#     commit = "927ebde414ffb77e8180d6918010a89118b10c5a", # feature/wheel branch
+#     remote = "https://github.com/gengo/rules_pypi.git",
+# )
+
+local_repository(
+    name = "com_github_gengo_rules_pypi",
+    path = "/Users/pcj/github/gengo/rules_pypi",
+)
+
+load("@com_github_gengo_rules_pypi//pypi:def.bzl", "pypi_repositories")
+
+pypi_repositories()
+
+# ================================================================
 # Specific Languages Support
 # ================================================================
 
