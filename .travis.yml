@@ -1,9 +1,6 @@
-# trusty beta image has jdk8, gcc4.8.4
 dist: trusty
 sudo: required
-# xcode8 has jdk8
 osx_image: xcode8
-# Not technically required but suppresses 'Ruby' in Job status message.
 language: java
 
 os:
@@ -42,7 +39,6 @@ script:
       --host_jvm_args=-Xmx500m \
       --host_jvm_args=-Xms500m \
       test \
-      closure/... \
       --verbose_failures \
       --test_output=errors \
       --test_strategy=standalone \
@@ -51,7 +47,7 @@ script:
       --local_resources=400,2,1.0 \
       --worker_verbose \
       --strategy=Javac=worker \
-      --strategy=Closure=worker
+      --strategy=Closure=worker \
       //examples/helloworld/closure/... \
       //examples/helloworld/cpp/... \
       //examples/helloworld/go/... \
