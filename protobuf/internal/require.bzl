@@ -1,4 +1,12 @@
-def _needs_install(name, dep, hkeys=["sha256", "sha1", "tag"], verbose=0):
+CONFLICT_MESSAGE = """
+An existing {rule_kind} rule '{rule_name}' was already loaded
+ with a {hash_key} value of '{actual_hash_value}'.
+Refusing to overwrite this with the requested value ('{expected_hash_value}').
+Either remove the pre-existing rule from your WORKSPACE
+or exclude it from loading by rules_protobuf.
+"""
+
+def _needs_install(name, dep, hkeys=["sha256", "sha1", "tag", "commit"], verbose=0):
 
     # Does it already exist?
     existing_rule = native.existing_rule(name)
@@ -13,10 +21,14 @@ def _needs_install(name, dep, hkeys=["sha256", "sha1", "tag"], verbose=0):
         actual = existing_rule.get(hkey)
         if expected:
             if expected != actual:
-                msg = """
-An existing {0} rule '{1}' was already loaded with a {2} value of '{3}'.  Refusing to overwrite this with the requested value ('{4}').
-Either remove the pre-existing rule from your WORKSPACE or exclude it from loading by rules_protobuf.
-""".format(existing_rule["kind"], name, hkey, actual, expected)
+                msg = CONFLICT_MESSAGE.format(
+                    rule_kind = existing_rule["kind"],
+                    rule_name = name,
+                    hash_key = hkey,
+                    actual_hash_value = actual,
+                    expected_hash_value = expected)
+
+                #msg = CONFLICT_MESSAGE.format(existing_rule["kind"], name, hkey, actual, expected)
 
                 fail(msg)
             else:
@@ -70,8 +82,8 @@ def require(keys,
         if not key in excludes:
             over = overrides.get(key)
             data = d + over if over else d
-            if _needs_install(key, d, verbose=verbose):
-                data["name"] = key
-                required.append(d)
+            data["name"] = key
+            if _needs_install(key, data, verbose=verbose):
+                required.append(data)
 
     return _install(required, verbose)
