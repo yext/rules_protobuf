@@ -106,12 +106,10 @@ load("//ruby:rules.bzl", "ruby_proto_repositories")
 
 ruby_proto_repositories()
 
-# ================================================================
-# This is for testing
-# ================================================================
-
+# Recent versions of bazel prohibit using local_repository to re-use the name of
+# the current workspace. This is used by the GOOGLEAPIS_BUILD_FILE below.
 local_repository(
-    name = "org_pubref_rules_protobuf",
+    name = "local_rules_protobuf",
     path = ".",
 )
 
@@ -121,9 +119,9 @@ package(default_visibility = ["//visibility:public"])
 load("@io_bazel_rules_go//go:def.bzl", "go_prefix")
 go_prefix("github.com/googleapis/googleapis")
 
-load("@org_pubref_rules_protobuf//cpp:rules.bzl", "cc_proto_library")
-load("@org_pubref_rules_protobuf//java:rules.bzl", "java_proto_library")
-load("@org_pubref_rules_protobuf//go:rules.bzl", "go_proto_library")
+load("@local_rules_protobuf//cpp:rules.bzl", "cc_proto_library")
+load("@local_rules_protobuf//java:rules.bzl", "java_proto_library")
+load("@local_rules_protobuf//go:rules.bzl", "go_proto_library")
 
 cc_proto_library(
     name = "cc_label_proto",

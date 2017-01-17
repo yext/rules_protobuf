@@ -7,7 +7,7 @@ DEPS = {
     "org_golang_x_net": {
         "rule": "new_go_repository",
         "importpath": "golang.org/x/net",
-        "commit": "2a35e686583654a1b89ca79c4ac78cb3d6529ca3",
+        "commit": "2a35e686583654a1b89ca79c4ac78cb3d6529ca3", # May 6, 2016
     },
 
     "com_github_golang_glog": {
@@ -25,7 +25,7 @@ DEPS = {
     "org_golang_google_grpc": {
         "rule": "new_go_repository",
         "importpath": "google.golang.org/grpc",
-        "tag": "v1.0.5",
+        "tag": "v1.0.5", # Dec 5, 2016
     },
 
 }
