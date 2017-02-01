@@ -28,6 +28,17 @@ PB_COMPILE_DEPS = [
     "@com_github_golang_protobuf//proto:go_default_library",
 ]
 
+WKT_DEPS = [
+  "@com_github_golang_protobuf//protoc-gen-go/descriptor:go_default_library",
+  "@com_github_golang_protobuf//protoc-gen-go/plugin:go_default_library",
+  "@com_github_golang_protobuf//ptypes/any:go_default_library",
+  "@com_github_golang_protobuf//ptypes/duration:go_default_library",
+  "@com_github_golang_protobuf//ptypes/empty:go_default_library",
+  "@com_github_golang_protobuf//ptypes/struct:go_default_library",
+  "@com_github_golang_protobuf//ptypes/timestamp:go_default_library",
+  "@com_github_golang_protobuf//ptypes/wrappers:go_default_library",
+]
+
 GRPC_COMPILE_DEPS = PB_COMPILE_DEPS + [
     "@com_github_golang_glog//:go_default_library",
     "@org_golang_google_grpc//:go_default_library",
@@ -62,6 +73,7 @@ def go_proto_library(
     deps = [],
     go_proto_deps = [],
     verbose = 0,
+    wkt = True,
     **kwargs):
 
   if not go_proto_deps:
@@ -69,6 +81,9 @@ def go_proto_library(
       go_proto_deps += GRPC_COMPILE_DEPS
     else:
       go_proto_deps += PB_COMPILE_DEPS
+
+  if wkt:
+    go_proto_deps += WKT_DEPS
 
   proto_compile_args += {
     "name": name + ".pb",
@@ -95,8 +110,10 @@ def go_proto_library(
 
   proto_compile(**proto_compile_args)
 
+  go_deps = list(set(deps + proto_deps + go_proto_deps))
+
   go_library(
     name = name,
     srcs = srcs + [name + ".pb"],
-    deps = list(set(deps + proto_deps + go_proto_deps)),
+    deps = go_deps,
     **kwargs)
