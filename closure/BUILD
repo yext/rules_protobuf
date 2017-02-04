@@ -11,6 +11,12 @@ proto_language(
         "error_on_name_conflict",
         "binary",
     ],
+    pb_inputs = [
+        "@com_github_google_protobuf//:well_known_protos",
+    ],
+    pb_imports = [
+        "external/com_github_google_protobuf/src/",
+    ],
     output_to_library = True,
 )
 

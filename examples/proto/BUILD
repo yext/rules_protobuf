@@ -10,6 +10,7 @@ load("//objc:rules.bzl", "objc_proto_compile")
 load("//python:rules.bzl", "py_proto_compile")
 load("//protobuf:rules.bzl", "proto_compile")
 load("//ruby:rules.bzl", "ruby_proto_compile")
+load("//grpc-js:rules.bzl", "grpc_js_proto_compile")
 
 filegroup(
     name = "protos",
@@ -67,6 +68,12 @@ ruby_proto_compile(
     protos = [":protos"],
     verbose = 0,
     with_grpc = False,
+)
+
+grpc_js_proto_compile(
+    name = "grpc-js",
+    protos = [":protos"],
+    verbose = 1,
 )
 
 # This conflicts with outputs from other rules here but demonstrates

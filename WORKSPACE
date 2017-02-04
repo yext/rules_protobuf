@@ -20,13 +20,15 @@ go_repositories()
 
 git_repository(
     name = "io_bazel_rules_closure",
-    commit = "a6b65d5c5c9db8968fb8e03115d5e4f6976de8f7",
     remote = "https://github.com/bazelbuild/rules_closure.git",
+    commit = "0b94d84d56564e6e33ca2e7c54d80a28d8d7f749",
 )
 
 load("@io_bazel_rules_closure//closure:defs.bzl", "closure_repositories")
 
-closure_repositories()
+closure_repositories(
+    #omit_com_google_code_findbugs_jsr305 = True,
+)
 
 # ================================================================
 # csharp_proto_library support requires rules_dotnet (forked)
@@ -74,7 +76,11 @@ csharp_proto_repositories()
 
 load("//java:rules.bzl", "java_proto_repositories", "nano_proto_repositories")
 
-java_proto_repositories()
+java_proto_repositories(
+    excludes = [
+        "com_google_code_findbugs_jsr305" # provided by rules_closure
+    ]
+)
 
 nano_proto_repositories()
 
@@ -149,6 +155,18 @@ go_proto_library(
     ],
     verbose = 0,
 )
+
+WELL_KNOWN_PROTOS = [
+    "google/api/http.proto",
+    "google/api/annotations.proto",
+]
+
+filegroup(
+    name = "well_known_protos",
+    srcs = WELL_KNOWN_PROTOS,
+    visibility = ["//visibility:public"],
+)
+
 """
 
 new_git_repository(

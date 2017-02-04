@@ -22,6 +22,12 @@ DEPS = {
         "commit": "8ee79997227bf9b34611aee7946ae64735e6fd93", # ~ Nov 16, 2016
     },
 
+    "com_github_google_go_genproto": {
+        "rule": "new_go_repository",
+        "importpath": "github.com/google/go-genproto",
+        "commit": "b3e7c2fb04031add52c4817f53f43757ccbf9c18",
+    },
+
     "org_golang_google_grpc": {
         "rule": "new_go_repository",
         "importpath": "google.golang.org/grpc",

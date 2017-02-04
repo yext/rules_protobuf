@@ -6,6 +6,7 @@ def go_proto_repositories(
     lang_deps = DEPS,
     lang_requires = [
       "com_github_golang_protobuf",
+      "com_github_google_go_genproto",
       "com_github_golang_glog",
       "org_golang_google_grpc",
       "org_golang_x_net",

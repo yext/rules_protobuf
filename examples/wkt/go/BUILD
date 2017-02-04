@@ -30,7 +30,7 @@ go_proto_library(
         "@com_github_golang_protobuf//ptypes/timestamp:go_default_library",
         "@com_github_golang_protobuf//ptypes/wrappers:go_default_library",
     ],
-    verbose = 3,
+    verbose = 0,
 )
 
 go_test(
@@ -41,4 +41,12 @@ go_test(
         "protolib",
         "@com_github_golang_protobuf//protoc-gen-go/descriptor:go_default_library",
     ],
+)
+
+
+go_proto_library(
+    name = "api",
+    langs = ["//go:google-api"],
+    protos = ["api.proto"],
+    deps = ["@com_github_google_go_genproto//googleapis/api/annotations:go_default_library",],
 )
