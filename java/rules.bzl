@@ -79,7 +79,7 @@ def java_proto_library(
     grpc_options = [],
 
     proto_compile_args = {},
-    with_grpc = True,
+    with_grpc = False,
     srcs = [],
     deps = [],
     verbose = 0,
