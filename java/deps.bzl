@@ -26,8 +26,8 @@ DEPS = {
 
     "com_google_guava_guava": {
         "rule": "maven_jar",
-        "artifact": "com.google.guava:guava:jar:19.0",
-        "sha1": "6ce200f6b23222af3d8abb6b6459e6c44f4bb0e9",
+        "artifact": "com.google.guava:guava:jar:23.0",
+        "sha1": "c947004bb13d18182be60077ade044099e4f26f1",
     },
 
     "io_grpc_grpc_core": {
